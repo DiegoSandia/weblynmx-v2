@@ -906,6 +906,199 @@ section { position: relative; }
   background: radial-gradient(ellipse at center, rgba(11,11,11,0.55) 0%, rgba(11,11,11,0.88) 100%);
 }
 
+
+/* ============================================================
+   SECCIÓN CONTACTO
+   ============================================================ */
+.contact-section {
+  background: var(--panel);
+  border-top: 1px solid var(--green-line);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+.contact-left h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.contact-left p {
+  color: var(--muted-2);
+  font-size: 1rem;
+  max-width: 420px;
+  margin-bottom: 2.4rem;
+  line-height: 1.6;
+}
+.contact-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  background: var(--bg-2);
+  border: 1px solid var(--green-line);
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color .3s, transform .3s var(--ease-out), box-shadow .3s;
+}
+.contact-link:hover {
+  border-color: var(--accent);
+  transform: translateX(6px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.contact-link-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.contact-link-icon.green { background: rgba(139,255,97,0.12); }
+.contact-link-icon.purple { background: rgba(200,100,255,0.12); }
+.contact-link-icon.teal { background: rgba(0,200,180,0.12); }
+.contact-link-icon.card { background: rgba(139,255,97,0.08); border: 1px solid var(--green-line); }
+.contact-link-text { flex: 1; min-width: 0; }
+.contact-link-text strong {
+  display: block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-bottom: 0.15rem;
+}
+.contact-link-text span {
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+.contact-arrow {
+  color: var(--accent);
+  font-size: 1rem;
+  transition: transform .3s var(--ease-out);
+}
+.contact-link:hover .contact-arrow { transform: translateX(4px); }
+
+/* WhatsApp Wizard */
+.wa-wizard {
+  background: var(--bg-2);
+  border: 1px solid var(--green-line);
+  border-radius: 18px;
+  padding: 2rem;
+}
+.wa-wizard-title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+.wa-wizard-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+}
+.wa-wizard-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+.wa-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-bottom: 1.4rem;
+}
+.wa-option {
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid var(--green-line);
+  background: var(--panel);
+  color: var(--muted-2);
+  font-size: 0.82rem;
+  font-family: var(--body);
+  text-align: left;
+  line-height: 1.3;
+  transition: border-color .2s, color .2s, background .2s, transform .2s;
+  cursor: none;
+}
+.wa-option:hover { border-color: rgba(139,255,97,0.4); color: var(--text); }
+.wa-option.selected {
+  border-color: var(--accent);
+  background: rgba(139,255,97,0.08);
+  color: var(--text);
+  transform: scale(1.02);
+}
+.wa-name-row {
+  margin-bottom: 1.2rem;
+}
+.wa-name-input {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--green-line);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color .2s;
+}
+.wa-name-input::placeholder { color: var(--muted); }
+.wa-name-input:focus { border-color: var(--accent); }
+.wa-send-btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #0B0B0B;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: transform .3s var(--ease-out), box-shadow .3s, opacity .2s;
+  cursor: none;
+}
+.wa-send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px rgba(139,255,97,0.4);
+}
+.wa-send-btn:disabled { opacity: 0.45; transform: none; box-shadow: none; }
+.wa-preview {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  background: rgba(139,255,97,0.05);
+  border: 1px solid rgba(139,255,97,0.1);
+  font-size: 0.78rem;
+  color: var(--muted-2);
+  line-height: 1.5;
+  display: none;
+}
+.wa-preview.visible { display: block; }
+.wa-preview strong { color: var(--accent); display: block; margin-bottom: 0.3rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
 /* ============================================================
    FOOTER
    ============================================================ */
@@ -1240,6 +1433,129 @@ footer {
   <div class="cta-badge reveal" style="--reveal-delay:.3s;">
     <span class="dot"></span>
     Respondemos en menos de 2 horas
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACTO
+============================================================ -->
+<section class="contact-section" id="contacto">
+  <div class="section-wrap">
+    <div class="contact-grid">
+
+      <!-- Izquierda: info + canales -->
+      <div class="contact-left reveal">
+        <span class="eyebrow" style="margin-bottom:1.2rem;">Contacto</span>
+        <h2 style="margin-top:1rem;">Hablemos de tu <span class="accent">proyecto.</span></h2>
+        <p>Sin tecnicismos, sin formularios eternos. Escríbenos por el canal que prefieras y empezamos.</p>
+
+        <div class="contact-channels">
+
+          <!-- WhatsApp -->
+          <a href="https://wa.me/525541426190" target="_blank" rel="noopener" class="contact-link">
+            <div class="contact-link-icon green">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#8BFF61"/>
+                <path d="M12.004 2C6.477 2 2 6.477 2 12.004c0 1.771.465 3.432 1.28 4.877L2 22l5.26-1.247A9.956 9.956 0 0012.004 22C17.531 22 22 17.523 22 12.004 22 6.477 17.531 2 12.004 2zm0 18.214a8.195 8.195 0 01-4.187-1.146l-.299-.179-3.121.74.784-3.032-.197-.311A8.172 8.172 0 013.786 12c0-4.529 3.685-8.214 8.218-8.214 4.532 0 8.21 3.685 8.21 8.214 0 4.529-3.678 8.214-8.21 8.214z" fill="#8BFF61" opacity=".6"/>
+              </svg>
+            </div>
+            <div class="contact-link-text">
+              <strong>WhatsApp</strong>
+              <span>+52 55 4142 6190</span>
+            </div>
+            <span class="contact-arrow">→</span>
+          </a>
+
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/weblynmx" target="_blank" rel="noopener" class="contact-link">
+            <div class="contact-link-icon purple">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="6" stroke="#C864FF" stroke-width="1.8"/>
+                <circle cx="12" cy="12" r="4.5" stroke="#C864FF" stroke-width="1.8"/>
+                <circle cx="17.5" cy="6.5" r="1.2" fill="#C864FF"/>
+              </svg>
+            </div>
+            <div class="contact-link-text">
+              <strong>Instagram</strong>
+              <span>@weblynmx</span>
+            </div>
+            <span class="contact-arrow">→</span>
+          </a>
+
+          <!-- Correo -->
+          <a href="mailto:weblynmx@gmail.com" class="contact-link">
+            <div class="contact-link-icon teal">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="4" width="20" height="16" rx="3" stroke="#00C8B4" stroke-width="1.8"/>
+                <path d="M2 7l10 7 10-7" stroke="#00C8B4" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="contact-link-text">
+              <strong>Correo</strong>
+              <span>weblynmx@gmail.com</span>
+            </div>
+            <span class="contact-arrow">→</span>
+          </a>
+
+          <!-- Tarjeta digital -->
+          <a href="https://tarjeta-weblynmx.vercel.app/" target="_blank" rel="noopener" class="contact-link">
+            <div class="contact-link-icon card">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="5" width="20" height="14" rx="3" stroke="#8BFF61" stroke-width="1.8"/>
+                <path d="M2 9h20" stroke="#8BFF61" stroke-width="1.8"/>
+                <rect x="5" y="13" width="5" height="2" rx="1" fill="#8BFF61"/>
+                <rect x="12" y="13" width="3" height="2" rx="1" fill="#8BFF61" opacity=".5"/>
+              </svg>
+            </div>
+            <div class="contact-link-text">
+              <strong>Tarjeta Digital</strong>
+              <span>tarjeta-weblynmx.vercel.app</span>
+            </div>
+            <span class="contact-arrow">→</span>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Derecha: wizard de cotización por WhatsApp -->
+      <div class="reveal" style="--reveal-delay:.15s;">
+        <div class="wa-wizard">
+          <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#8BFF61"/><path d="M12.004 2C6.477 2 2 6.477 2 12.004c0 1.771.465 3.432 1.28 4.877L2 22l5.26-1.247A9.956 9.956 0 0012.004 22C17.531 22 22 17.523 22 12.004 22 6.477 17.531 2 12.004 2zm0 18.214a8.195 8.195 0 01-4.187-1.146l-.299-.179-3.121.74.784-3.032-.197-.311A8.172 8.172 0 013.786 12c0-4.529 3.685-8.214 8.218-8.214 4.532 0 8.21 3.685 8.21 8.214 0 4.529-3.678 8.214-8.21 8.214z" fill="#8BFF61" opacity=".6"/></svg>
+            <span class="wa-wizard-title">Cotizar por WhatsApp</span>
+          </div>
+          <p class="wa-wizard-sub">Elige lo que mejor describe tu proyecto y te generamos el mensaje. Llega en 30 segundos.</p>
+
+          <span class="wa-wizard-label">¿Qué necesitas?</span>
+          <div class="wa-options" id="wa-options">
+            <button class="wa-option" data-pkg="Vender Más (Landing + Funnel)" data-msg="Hola 👋 Quiero cotizar una *Landing Page* para vender más. Actualmente tengo tráfico pero no convierte bien. Me gustaría saber precios y tiempos de entrega.">🚀 Landing page que vende</button>
+            <button class="wa-option" data-pkg="Mejorar la Marca (Rebrand + Sitio)" data-msg="Hola 👋 Quiero cotizar un *rebrand y sitio web*. Mi negocio se ve amateur y necesita verse más profesional y premium. ¿Podemos hablar?">✨ Mejorar imagen de marca</button>
+            <button class="wa-option" data-pkg="Restaurante & Food (Menú Digital + Landing)" data-msg="Hola 👋 Tengo un *restaurante / café* y quiero cotizar un menú digital y/o sitio web. ¿Qué opciones tienen y cuánto cuesta?">🍽️ Restaurante o menú digital</button>
+            <button class="wa-option" data-pkg="Evento Único (Invitación Digital + RSVP)" data-msg="Hola 👋 Quiero cotizar una *invitación digital* con RSVP para un evento. Me gustaría ver ejemplos y precios.">🎉 Invitación para evento</button>
+            <button class="wa-option" data-pkg="Sector Salud / Profesionistas (Sitio Premium)" data-msg="Hola 👋 Soy *profesionista* (médico / abogado / arquitecto / consultor) y quiero un sitio web que me haga ver más serio y confiable. ¿Qué paquetes tienen?">👔 Soy profesionista</button>
+            <button class="wa-option" data-pkg="Emprendedor (Lanzamiento desde cero)" data-msg="Hola 👋 Estoy *lanzando mi negocio* y quiero presencia web desde cero: logo, sitio y sistema de redes. ¿Por dónde empezamos?">🌱 Lanzar mi negocio</button>
+            <button class="wa-option" data-pkg="Startup & Tech (Sitio Premium + Deck)" data-msg="Hola 👋 Tengo una *startup o proyecto tech* y necesito un sitio premium más deck digital. Estamos buscando inversión / clientes. ¿Pueden ayudarnos?">💻 Startup o proyecto tech</button>
+            <button class="wa-option" data-pkg="Otro proyecto" data-msg="Hola 👋 Tengo un proyecto web y quiero cotizar con WeblynMX. ¿Podemos agendar una llamada rápida para contarles de qué se trata?">💬 Otro tipo de proyecto</button>
+          </div>
+
+          <div class="wa-name-row">
+            <span class="wa-wizard-label">Tu nombre (opcional)</span>
+            <input type="text" class="wa-name-input" id="wa-name" placeholder="Ej. Carlos, Sofía, Andrés..." maxlength="40" />
+          </div>
+
+          <div class="wa-preview" id="wa-preview">
+            <strong>📲 Así llegará tu mensaje:</strong>
+            <span id="wa-preview-text"></span>
+          </div>
+
+          <button class="wa-send-btn" id="wa-send" disabled>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#0B0B0B"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.771.465 3.432 1.28 4.877L2 22l5.26-1.247A9.956 9.956 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" fill="#0B0B0B" opacity=".5"/></svg>
+            Abrir WhatsApp
+          </button>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -1741,8 +2057,62 @@ _safe('reveal', function() {
 /* =============== GLOBAL SAFETY NET ============= */
 window.addEventListener('error', (e) => {
   console.warn('[WeblynMX] JS error, fallback activated:', e.message);
-  // Si algo truena, asegura que el contenido sea visible
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+});
+
+/* =============== WHATSAPP WIZARD ============= */
+_safe('waWizard', function() {
+  const options = document.querySelectorAll('.wa-option');
+  const nameInput = document.getElementById('wa-name');
+  const sendBtn = document.getElementById('wa-send');
+  const preview = document.getElementById('wa-preview');
+  const previewText = document.getElementById('wa-preview-text');
+  if (!options.length || !sendBtn) return;
+
+  let selectedMsg = '';
+
+  function buildMessage() {
+    if (!selectedMsg) return '';
+    const name = (nameInput ? nameInput.value.trim() : '');
+    let msg = selectedMsg;
+    if (name) {
+      // Personalizar con el nombre al inicio
+      msg = msg.replace('Hola 👋', `Hola 👋 soy *${name}*,`);
+    }
+    return msg;
+  }
+
+  function updateState() {
+    const msg = buildMessage();
+    const ready = !!selectedMsg;
+    sendBtn.disabled = !ready;
+    if (ready && previewText) {
+      previewText.textContent = msg.replace(/\*/g, '');
+      preview.classList.add('visible');
+    } else {
+      preview.classList.remove('visible');
+    }
+  }
+
+  options.forEach(btn => {
+    btn.addEventListener('click', () => {
+      options.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedMsg = btn.dataset.msg || '';
+      updateState();
+    });
+  });
+
+  if (nameInput) {
+    nameInput.addEventListener('input', updateState);
+  }
+
+  sendBtn.addEventListener('click', () => {
+    const msg = buildMessage();
+    if (!msg) return;
+    const url = 'https://wa.me/525541426190?text=' + encodeURIComponent(msg);
+    window.open(url, '_blank', 'noopener');
+  });
 });
 
 </script>
