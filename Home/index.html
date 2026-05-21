@@ -419,6 +419,7 @@ section { position: relative; }
   background: var(--bg-2);
   user-select: none;
   -webkit-user-select: none;
+  touch-action: none;
   cursor: none;
 }
 .ba-img {
@@ -542,43 +543,36 @@ section { position: relative; }
 }
 
 /* ============================================================
-   PAQUETES — 3D CAROUSEL
+   PAQUETES — CAROUSEL
    ============================================================ */
 .carousel-3d {
   position: relative;
-  height: 620px;
-  perspective: 1800px;
   margin: 2rem 0 1rem;
   touch-action: pan-y;
 }
+.carousel-viewport {
+  overflow: hidden;
+  border-radius: 20px;
+}
 .carousel-stage {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
+  display: flex;
+  gap: 1.4rem;
+  transition: transform .65s var(--ease-out);
+  will-change: transform;
 }
 .card-pkg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(370px, 86vw);
-  height: 560px;
-  margin-top: -280px;
-  margin-left: min(-185px, -43vw);
+  flex: 0 0 min(380px, 80vw);
   background: var(--bg-2);
   border: 1px solid var(--green-line);
   border-radius: 18px;
   padding: 2rem 1.8rem;
   display: flex;
   flex-direction: column;
-  transition: transform .7s var(--ease-out), opacity .7s var(--ease-out), border-color .4s, box-shadow .4s;
-  backface-visibility: hidden;
-  will-change: transform, opacity;
-  overflow: hidden;
+  transition: border-color .4s, box-shadow .4s, transform .4s var(--ease-out);
 }
 .card-pkg.is-active {
   border-color: var(--accent);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(139,255,97,0.25);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(139,255,97,0.2);
 }
 .card-pkg-img {
   width: 100%;
@@ -641,29 +635,30 @@ section { position: relative; }
 }
 .carousel-nav {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
   align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  margin-top: 1.6rem;
 }
 .carousel-arrow {
-  width: 48px; height: 48px;
+  width: 52px; height: 52px;
   border-radius: 50%;
   border: 1px solid var(--green-line);
   background: var(--bg-2);
   display: grid;
   place-items: center;
   color: var(--accent);
-  font-size: 1.1rem;
-  transition: background .25s, border-color .25s, transform .25s;
+  font-size: 1.2rem;
+  transition: background .25s, border-color .25s, transform .25s var(--ease-out);
+  flex-shrink: 0;
 }
-.carousel-arrow:hover { background: var(--accent); color: #0B0B0B; border-color: var(--accent); transform: scale(1.05); }
+.carousel-arrow:hover { background: var(--accent); color: #0B0B0B; border-color: var(--accent); transform: scale(1.08); }
 .carousel-counter {
   font-family: var(--display);
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1rem;
   letter-spacing: 0.05em;
-  min-width: 80px;
+  min-width: 70px;
   text-align: center;
   color: var(--text);
 }
@@ -894,6 +889,23 @@ section { position: relative; }
 @keyframes badge-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(139,255,97,0); } 50% { box-shadow: 0 0 24px rgba(139,255,97,0.12); } }
 @keyframes dot-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.6; } }
 
+/* CTA video bg */
+.cta-video-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+  z-index: -2;
+}
+.cta-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(11,11,11,0.55) 0%, rgba(11,11,11,0.88) 100%);
+}
+
 /* ============================================================
    FOOTER
    ============================================================ */
@@ -946,8 +958,7 @@ footer {
    RESPONSIVE
    ============================================================ */
 @media (max-width: 720px) {
-  .carousel-3d { height: 560px; }
-  .card-pkg { height: 500px; padding: 1.6rem 1.4rem; }
+  .card-pkg { flex-basis: min(320px, 78vw) !important; padding: 1.4rem 1.2rem; }
   .ba-handle { width: 48px !important; height: 48px !important; }
   .testimonials { grid-template-columns: 1fr; }
   .portfolio-card { flex-basis: 86vw; height: 52vh; }
@@ -985,8 +996,9 @@ footer {
   </a>
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#proyectos">Portafolio</a></li>
     <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
   </ul>
   <a href="https://wa.me/525541426190" target="_blank" rel="noopener" class="btn btn-pill-accent magnetic">
     Hablemos <span class="arrow">→</span>
@@ -1038,12 +1050,12 @@ footer {
     </div>
 
     <div class="ba-wrap ba-horizontal reveal" id="ba1" data-orient="h">
-      <img class="ba-img ba-after-img" src="./Antes y despues/Despues Landing page.png" alt="Después" onerror="this.style.display='none'; this.nextElementSibling && this.nextElementSibling.classList.contains('ba-placeholder') && (this.nextElementSibling.style.display='grid');" />
-      <div class="ba-placeholder" style="display:none;">Después · Landing Premium<small>./Antes y despues/Despues Landing page.png</small></div>
+      <img class="ba-img ba-after-img" src="./antes y despues/Despues Landing page.png" alt="Después" onerror="this.style.display='none'; this.nextElementSibling && this.nextElementSibling.classList.contains('ba-placeholder') && (this.nextElementSibling.style.display='grid');" />
+      <div class="ba-placeholder" style="display:none;">Después · Landing Premium<small>./antes y despues/Despues Landing page.png</small></div>
 
       <div class="ba-before-wrap">
-        <img class="ba-img ba-before-img" src="./Antes y despues/Antes - Landing Page.png" alt="Antes" onerror="this.style.display='none'; this.nextElementSibling && this.nextElementSibling.classList.contains('ba-placeholder') && (this.nextElementSibling.style.display='grid');" />
-        <div class="ba-placeholder" style="display:none;">Antes · Landing<small>./Antes y despues/Antes - Landing Page.png</small></div>
+        <img class="ba-img ba-before-img" src="./antes y despues/Antes - Landing Page.png" alt="Antes" onerror="this.style.display='none'; this.nextElementSibling && this.nextElementSibling.classList.contains('ba-placeholder') && (this.nextElementSibling.style.display='grid');" />
+        <div class="ba-placeholder" style="display:none;">Antes · Landing<small>./antes y despues/Antes - Landing Page.png</small></div>
       </div>
 
       <span class="ba-label ba-label-before">Antes</span>
@@ -1068,12 +1080,12 @@ footer {
     </div>
 
     <div class="ba-wrap ba-vertical reveal" id="ba2" data-orient="v">
-      <img class="ba-img ba-after-img" src="./Antes y despues/Despues-menu-restaurante.png" alt="Después menú" onerror="this.style.display='none'; this.nextElementSibling && this.nextElementSibling.classList.contains('ba-placeholder') && (this.nextElementSibling.style.display='grid');" />
-      <div class="ba-placeholder" style="display:none;">Después · Menú Digital<small>./Antes y despues/Despues-menu-restaurante.png</small></div>
+      <img class="ba-img ba-after-img" src="./antes y despues/Despues-menu-restaurante.png" alt="Después menú" onerror="this.style.display='none'; this.nextElementSibling && this.nextElementSibling.classList.contains('ba-placeholder') && (this.nextElementSibling.style.display='grid');" />
+      <div class="ba-placeholder" style="display:none;">Después · Menú Digital<small>./antes y despues/Despues-menu-restaurante.png</small></div>
 
       <div class="ba-before-wrap">
-        <img class="ba-img ba-before-img" src="./Antes y despues/Antes-menu restaurante.png" alt="Antes menú" onerror="this.style.display='none'; this.nextElementSibling && this.nextElementSibling.classList.contains('ba-placeholder') && (this.nextElementSibling.style.display='grid');" />
-        <div class="ba-placeholder" style="display:none;">Antes · Menú impreso<small>./Antes y despues/Antes-menu restaurante.png</small></div>
+        <img class="ba-img ba-before-img" src="./antes y despues/Antes-menu restaurante.png" alt="Antes menú" onerror="this.style.display='none'; this.nextElementSibling && this.nextElementSibling.classList.contains('ba-placeholder') && (this.nextElementSibling.style.display='grid');" />
+        <div class="ba-placeholder" style="display:none;">Antes · Menú impreso<small>./antes y despues/Antes-menu restaurante.png</small></div>
       </div>
 
       <span class="ba-label ba-label-before">Antes</span>
@@ -1099,13 +1111,14 @@ footer {
     </div>
 
     <div class="carousel-3d reveal" id="pkg-carousel">
-      <div class="carousel-stage" id="pkg-stage"></div>
-    </div>
-
-    <div class="carousel-nav reveal">
-      <button class="carousel-arrow" id="pkg-prev" aria-label="Anterior">←</button>
-      <div class="carousel-counter"><span id="pkg-current">01</span> <span class="total">/ 15</span></div>
-      <button class="carousel-arrow" id="pkg-next" aria-label="Siguiente">→</button>
+      <div class="carousel-viewport">
+        <div class="carousel-stage" id="pkg-stage"></div>
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-arrow" id="pkg-prev" aria-label="Anterior">←</button>
+        <div class="carousel-counter"><span id="pkg-current">01</span> <span class="total">/ 15</span></div>
+        <button class="carousel-arrow" id="pkg-next" aria-label="Siguiente">→</button>
+      </div>
     </div>
 
     <div class="meta-ads-banner reveal" style="--reveal-delay:.1s;">
@@ -1214,8 +1227,11 @@ footer {
 <!-- ============================================================
      CTA FINAL
 ============================================================ -->
-<section class="cta-final">
-  <canvas class="cta-canvas" id="cta-canvas"></canvas>
+<section class="cta-final" id="contacto">
+  <video class="cta-video-bg" autoplay loop muted playsinline>
+    <source src="./Hero/Hero video.mp4" type="video/mp4" />
+  </video>
+  <div class="cta-overlay"></div>
   <h2 class="cta-headline reveal">Tu negocio merece <span class="accent">verse así.</span></h2>
   <p class="cta-sub reveal" style="--reveal-delay:.1s;">Comenzamos con una conversación. Sin presión. Sin términos técnicos.</p>
   <a href="https://wa.me/525541426190" target="_blank" rel="noopener" class="btn btn-primary cta-button-big magnetic reveal" style="--reveal-delay:.2s;">
@@ -1375,19 +1391,20 @@ _safe('heroCanvas', function() {
   const ctx = canvas.getContext('2d');
   let w, h;
   let mouseX = -9999, mouseY = -9999;
-  let mx = mouseX, my = mouseY;
+  let mx = -9999, my = -9999;
   let particles = [];
 
   function initParticles() {
-    const count = Math.min(60, Math.max(28, Math.floor((w * h) / 28000)));
+    const count = Math.min(120, Math.max(60, Math.floor((w * h) / 12000)));
     particles = [];
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        r: 1 + Math.random() * 1.4
+        vx: (Math.random() - 0.5) * 0.9,
+        vy: (Math.random() - 0.5) * 0.9,
+        r: 1.5 + Math.random() * 2.2,
+        pulse: Math.random() * Math.PI * 2
       });
     }
   }
@@ -1404,55 +1421,58 @@ _safe('heroCanvas', function() {
   window.addEventListener('resize', resize);
   resize();
 
-  // Track mouse over hero
   const hero = canvas.parentElement;
   hero.addEventListener('pointermove', (e) => {
     const rect = canvas.getBoundingClientRect();
     mouseX = e.clientX - rect.left;
     mouseY = e.clientY - rect.top;
   });
-  hero.addEventListener('pointerleave', () => {
-    mouseX = -9999; mouseY = -9999;
-  });
+  hero.addEventListener('pointerleave', () => { mouseX = -9999; mouseY = -9999; });
 
-  const MAX_DIST = 150;
-  const MOUSE_RADIUS = 220;
+  const MAX_DIST = 180;
+  const MOUSE_RADIUS = 280;
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
 
-    // Lerp mouse
-    mx += (mouseX - mx) * 0.12;
-    my += (mouseY - my) * 0.12;
+    mx += (mouseX - mx) * 0.1;
+    my += (mouseY - my) * 0.1;
 
-    // Sutil cursor glow
+    // Cursor glow fuerte
     if (mouseX > -1000) {
       const g = ctx.createRadialGradient(mx, my, 0, mx, my, MOUSE_RADIUS);
-      g.addColorStop(0, 'rgba(139,255,97,0.14)');
-      g.addColorStop(0.5, 'rgba(139,255,97,0.04)');
+      g.addColorStop(0, 'rgba(139,255,97,0.22)');
+      g.addColorStop(0.4, 'rgba(139,255,97,0.08)');
       g.addColorStop(1, 'rgba(139,255,97,0)');
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, w, h);
     }
 
-    // Update particles
+    // Ambient corner glow siempre visible
+    const cg = ctx.createRadialGradient(0, h, 0, 0, h, w * 0.65);
+    cg.addColorStop(0, 'rgba(139,255,97,0.07)');
+    cg.addColorStop(1, 'rgba(139,255,97,0)');
+    ctx.fillStyle = cg;
+    ctx.fillRect(0, 0, w, h);
+
+    // Update + mouse attract
     particles.forEach(p => {
       p.x += p.vx;
       p.y += p.vy;
+      p.pulse += 0.025;
       if (p.x < 0 || p.x > w) p.vx *= -1;
       if (p.y < 0 || p.y > h) p.vy *= -1;
       if (mouseX > -1000) {
         const dx = mx - p.x, dy = my - p.y;
         const dist = Math.hypot(dx, dy);
         if (dist < MOUSE_RADIUS && dist > 1) {
-          const force = (1 - dist / MOUSE_RADIUS) * 0.25;
-          p.x += (dx / dist) * force;
-          p.y += (dy / dist) * force;
+          p.x += (dx / dist) * (1 - dist / MOUSE_RADIUS) * 0.55;
+          p.y += (dy / dist) * (1 - dist / MOUSE_RADIUS) * 0.55;
         }
       }
     });
 
-    // Connector lines
+    // Lines
     ctx.lineWidth = 1;
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
@@ -1460,8 +1480,7 @@ _safe('heroCanvas', function() {
         const dx = a.x - b.x, dy = a.y - b.y;
         const dist = Math.hypot(dx, dy);
         if (dist < MAX_DIST) {
-          const op = (1 - dist / MAX_DIST) * 0.28;
-          ctx.strokeStyle = `rgba(139,255,97,${op})`;
+          ctx.strokeStyle = `rgba(139,255,97,${(1 - dist / MAX_DIST) * 0.5})`;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
@@ -1470,13 +1489,14 @@ _safe('heroCanvas', function() {
       }
     }
 
-    // Particles with glow
-    ctx.shadowColor = '#8BFF61';
-    ctx.shadowBlur = 10;
+    // Particles pulsantes con glow fuerte
     particles.forEach(p => {
+      const r = p.r + Math.sin(p.pulse) * 0.7;
+      ctx.shadowColor = '#8BFF61';
+      ctx.shadowBlur = 20;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(139,255,97,0.85)';
+      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(139,255,97,0.92)';
       ctx.fill();
     });
     ctx.shadowBlur = 0;
@@ -1523,16 +1543,38 @@ _safe('beforeAfter', function() {
     wrap.addEventListener('pointerdown', (e) => {
       dragging = true;
       autoActive = false;
-      wrap.setPointerCapture(e.pointerId);
+      try { wrap.setPointerCapture(e.pointerId); } catch(_) {}
       setFromEvent(e);
+      e.preventDefault();
     });
     wrap.addEventListener('pointermove', (e) => {
-      if (dragging) setFromEvent(e);
-    });
+      if (!dragging) return;
+      setFromEvent(e);
+      e.preventDefault();
+    }, { passive: false });
     wrap.addEventListener('pointerup', (e) => {
       dragging = false;
       try { wrap.releasePointerCapture(e.pointerId); } catch(_) {}
     });
+    wrap.addEventListener('pointercancel', () => { dragging = false; });
+    // Touch fallback for older mobile browsers
+    wrap.addEventListener('touchstart', (e) => {
+      dragging = true; autoActive = false;
+      e.preventDefault();
+    }, { passive: false });
+    wrap.addEventListener('touchmove', (e) => {
+      if (!dragging) return;
+      e.preventDefault();
+      const t = e.touches[0];
+      const r = wrap.getBoundingClientRect();
+      if (orient === 'h') {
+        pos = Math.max(0, Math.min(100, ((t.clientX - r.left) / r.width) * 100));
+      } else {
+        pos = Math.max(0, Math.min(100, ((t.clientY - r.top) / r.height) * 100));
+      }
+      apply();
+    }, { passive: false });
+    wrap.addEventListener('touchend', () => { dragging = false; });
 
     // Auto-animate gentle hint
     let last = performance.now();
@@ -1573,7 +1615,7 @@ _safe('pkgCarousel', function() {
   const counter = document.getElementById('pkg-current');
   let active = 0;
 
-  data.forEach((p, i) => {
+  data.forEach((p) => {
     const c = document.createElement('article');
     c.className = 'card-pkg';
     c.innerHTML = `
@@ -1592,68 +1634,56 @@ _safe('pkgCarousel', function() {
 
   const cards = Array.from(stage.children);
 
+  function getCardWidth() {
+    if (!cards[0]) return 380;
+    return cards[0].getBoundingClientRect().width + 22; // width + gap
+  }
+
   function layout() {
-    const n = cards.length;
+    const cw = getCardWidth();
+    const viewW = stage.parentElement.getBoundingClientRect().width;
+    // Center active card
+    const offset = (viewW / 2) - (cw * active) - (cw / 2);
+    stage.style.transform = `translateX(${offset}px)`;
     cards.forEach((card, i) => {
-      let diff = i - active;
-      // wrap shortest path
-      if (diff > n / 2) diff -= n;
-      if (diff < -n / 2) diff += n;
-      const abs = Math.abs(diff);
-      const isActive = diff === 0;
-
-      const tx = diff * 220;
-      const tz = -abs * 220;
-      const ry = diff * -18;
-      const opacity = abs > 3 ? 0 : (isActive ? 1 : 0.55 - abs * 0.12);
-      const scale = isActive ? 1.05 : 0.85;
-
-      card.style.transform = `translate(-50%, -50%) translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
-      card.style.opacity = opacity;
-      card.style.zIndex = 50 - abs;
+      const isActive = i === active;
       card.classList.toggle('is-active', isActive);
-      card.style.pointerEvents = abs <= 1 ? 'auto' : 'none';
     });
     counter.textContent = data[active].num;
   }
 
   function go(delta) {
-    active = (active + delta + cards.length) % cards.length;
+    active = Math.max(0, Math.min(cards.length - 1, active + delta));
     layout();
   }
 
   document.getElementById('pkg-prev').addEventListener('click', () => go(-1));
   document.getElementById('pkg-next').addEventListener('click', () => go(1));
 
-  // Drag
+  // Drag / swipe
   let dragStart = null;
-  const wrap = document.getElementById('pkg-carousel');
-  wrap.addEventListener('pointerdown', (e) => {
+  const carousel = document.getElementById('pkg-carousel');
+  carousel.addEventListener('pointerdown', (e) => {
     if (e.target.closest('a, button')) return;
     dragStart = { x: e.clientX, a: active };
-    wrap.setPointerCapture(e.pointerId);
+    try { carousel.setPointerCapture(e.pointerId); } catch(_) {}
   });
-  wrap.addEventListener('pointermove', (e) => {
+  carousel.addEventListener('pointermove', (e) => {
     if (!dragStart) return;
-    const dx = e.clientX - dragStart.x;
-    const steps = Math.round(-dx / 100);
-    if (steps !== 0) {
-      const newActive = (dragStart.a + steps + cards.length) % cards.length;
-      if (newActive !== active) {
-        active = newActive;
-        layout();
-      }
-    }
+    const cw = getCardWidth();
+    const steps = Math.round((dragStart.x - e.clientX) / (cw * 0.4));
+    const newActive = Math.max(0, Math.min(cards.length - 1, dragStart.a + steps));
+    if (newActive !== active) { active = newActive; layout(); }
   });
-  wrap.addEventListener('pointerup', () => dragStart = null);
-  wrap.addEventListener('pointercancel', () => dragStart = null);
+  carousel.addEventListener('pointerup', () => dragStart = null);
+  carousel.addEventListener('pointercancel', () => dragStart = null);
 
-  // Keyboard
   window.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') go(-1);
     if (e.key === 'ArrowRight') go(1);
   });
 
+  window.addEventListener('resize', layout);
   layout();
 });
 /* =============== PORTFOLIO PROGRESS BAR ============= */
@@ -1686,56 +1716,7 @@ _safe('portfolioProgress', function() {
   sc.addEventListener('pointerup', () => isDown = false);
   sc.addEventListener('pointercancel', () => isDown = false);
 });
-/* =============== CTA BOKEH CANVAS ============= */
-_safe('ctaBokeh', function() {
-  const c = document.getElementById('cta-canvas');
-  if (!c) return;
-  const ctx = c.getContext('2d');
-  let w, h;
-  const parts = [];
-
-  function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = c.offsetWidth;
-    h = c.offsetHeight;
-    c.width = w * dpr;
-    c.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  for (let i = 0; i < 28; i++) {
-    parts.push({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      r: 20 + Math.random() * 80,
-      vy: 0.05 + Math.random() * 0.2,
-      vx: (Math.random() - 0.5) * 0.1,
-      o: 0.05 + Math.random() * 0.15
-    });
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
-    parts.forEach(p => {
-      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-      g.addColorStop(0, `rgba(139,255,97,${p.o})`);
-      g.addColorStop(1, 'rgba(139,255,97,0)');
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
-      p.y -= p.vy;
-      p.x += p.vx;
-      if (p.y + p.r < 0) { p.y = h + p.r; p.x = Math.random() * w; }
-      if (p.x < -p.r) p.x = w + p.r;
-      if (p.x > w + p.r) p.x = -p.r;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-});
+/* CTA canvas replaced by video background */
 /* =============== SCROLL REVEAL ============= */
 _safe('reveal', function() {
   try {
