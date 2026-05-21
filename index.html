@@ -277,7 +277,7 @@ body.cursor-hover #cursor-dot { opacity: 0; }
   height: 100%;
   object-fit: cover;
   z-index: -2;
-  opacity: 0.55;
+  opacity: 0.78;
 }
 .hero-fallback {
   position: absolute;
@@ -300,7 +300,7 @@ body.cursor-hover #cursor-dot { opacity: 0; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: radial-gradient(ellipse at center, transparent 30%, rgba(11,11,11,0.85) 100%);
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(11,11,11,0.65) 100%);
   pointer-events: none;
 }
 .hero-content {
@@ -1368,12 +1368,29 @@ _safe('heroWords', function() {
     w.style.animationDelay = (0.4 + i * 0.06) + 's';
   });
 });
-/* =============== HERO CANVAS WAVES ============= */
+/* =============== HERO CANVAS — PARTICLES NETWORK ============= */
 _safe('heroCanvas', function() {
   const canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let w, h, t = 0;
+  let w, h;
+  let mouseX = -9999, mouseY = -9999;
+  let mx = mouseX, my = mouseY;
+  let particles = [];
+
+  function initParticles() {
+    const count = Math.min(60, Math.max(28, Math.floor((w * h) / 28000)));
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: 1 + Math.random() * 1.4
+      });
+    }
+  }
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1382,37 +1399,88 @@ _safe('heroCanvas', function() {
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    initParticles();
   }
   window.addEventListener('resize', resize);
   resize();
 
-  const layers = [
-    { amp: 60, freq: 0.005, speed: 0.012, off: 0.55, opacity: 0.55 },
-    { amp: 90, freq: 0.0035, speed: 0.008, off: 0.62, opacity: 0.35 },
-    { amp: 120, freq: 0.0025, speed: 0.005, off: 0.7,  opacity: 0.22 },
-    { amp: 75, freq: 0.0045, speed: 0.015, off: 0.5,  opacity: 0.18 },
-    { amp: 150, freq: 0.0018, speed: 0.003, off: 0.78, opacity: 0.1 }
-  ];
+  // Track mouse over hero
+  const hero = canvas.parentElement;
+  hero.addEventListener('pointermove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+  hero.addEventListener('pointerleave', () => {
+    mouseX = -9999; mouseY = -9999;
+  });
+
+  const MAX_DIST = 150;
+  const MOUSE_RADIUS = 220;
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
-    layers.forEach((L, idx) => {
-      ctx.beginPath();
-      for (let x = 0; x <= w; x += 4) {
-        const y = h * L.off + Math.sin(x * L.freq + t * L.speed * 60 + idx) * L.amp
-                + Math.sin(x * L.freq * 0.5 + t * L.speed * 30) * (L.amp * 0.3);
-        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+
+    // Lerp mouse
+    mx += (mouseX - mx) * 0.12;
+    my += (mouseY - my) * 0.12;
+
+    // Sutil cursor glow
+    if (mouseX > -1000) {
+      const g = ctx.createRadialGradient(mx, my, 0, mx, my, MOUSE_RADIUS);
+      g.addColorStop(0, 'rgba(139,255,97,0.14)');
+      g.addColorStop(0.5, 'rgba(139,255,97,0.04)');
+      g.addColorStop(1, 'rgba(139,255,97,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    // Update particles
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+      if (mouseX > -1000) {
+        const dx = mx - p.x, dy = my - p.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < MOUSE_RADIUS && dist > 1) {
+          const force = (1 - dist / MOUSE_RADIUS) * 0.25;
+          p.x += (dx / dist) * force;
+          p.y += (dy / dist) * force;
+        }
       }
-      ctx.lineTo(w, h);
-      ctx.lineTo(0, h);
-      ctx.closePath();
-      const grd = ctx.createLinearGradient(0, h * L.off - L.amp, 0, h);
-      grd.addColorStop(0, `rgba(139,255,97,${L.opacity})`);
-      grd.addColorStop(1, `rgba(139,255,97,0)`);
-      ctx.fillStyle = grd;
+    });
+
+    // Connector lines
+    ctx.lineWidth = 1;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i], b = particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < MAX_DIST) {
+          const op = (1 - dist / MAX_DIST) * 0.28;
+          ctx.strokeStyle = `rgba(139,255,97,${op})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Particles with glow
+    ctx.shadowColor = '#8BFF61';
+    ctx.shadowBlur = 10;
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(139,255,97,0.85)';
       ctx.fill();
     });
-    t += 1;
+    ctx.shadowBlur = 0;
+
     requestAnimationFrame(draw);
   }
   draw();
