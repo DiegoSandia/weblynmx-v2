@@ -12,12 +12,17 @@ export const BRAND = {
 } as const;
 
 /**
- * Dominio del sitio. Sin esto, la imagen de previsualización de WhatsApp
- * no resuelve y el link se comparte sin tarjeta.
- * En Vercel: Settings → Environment Variables → NEXT_PUBLIC_SITE_URL
+ * Dominio del sitio. Se resuelve solo, en este orden:
+ *   1. NEXT_PUBLIC_SITE_URL — se pone a mano cuando haya dominio propio.
+ *   2. VERCEL_PROJECT_PRODUCTION_URL — la inyecta Vercel sola, así que en el
+ *      .vercel.app la tarjeta de WhatsApp funciona sin configurar nada.
+ *   3. localhost en desarrollo.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sanchez-studio.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
 
 export const CONTACT = {
   /** Número tal como se muestra en pantalla. */
