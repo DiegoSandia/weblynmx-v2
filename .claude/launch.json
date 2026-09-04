@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "sanchez-studio",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "sanchez-studio", "run", "dev", "--", "--port", "3210"],
+      "port": 3210
+    },
+    {
+      "name": "ia-sin-humo",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "ia-sin-humo", "run", "dev", "--", "--port", "3100"],
+      "port": 3100
+    }
+  ]
+}
