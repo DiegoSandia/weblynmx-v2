@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import { BRAND, SITE_URL } from "@/lib/site";
+import { BRAND, INDEXABLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -41,11 +41,18 @@ export const metadata: Metadata = {
     title: TITLE,
     description: BRAND.tagline,
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
+  // Controlado por INDEXABLE en lib/site.ts.
+  robots: INDEXABLE
+    ? {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, "max-image-preview": "large" },
+      }
+    : {
+        index: false,
+        follow: false,
+        googleBot: { index: false, follow: false },
+      },
   formatDetection: { telephone: false },
 };
 

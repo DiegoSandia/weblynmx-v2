@@ -24,6 +24,20 @@ export const SITE_URL =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000");
 
+/**
+ * Interruptor de indexación. En false el sitio pide a los buscadores que NO
+ * lo indexen — mientras el nombre de marca siga a prueba y el dominio sea
+ * temporal, no conviene que Google levante "Sánchez Studio" en un .vercel.app
+ * que después hay que limpiar.
+ *
+ * Ojo: NO se bloquea el rastreo en robots.txt. Si se bloqueara, el buscador no
+ * podría leer la etiqueta noindex y la URL podría aparecer igual. Se deja
+ * rastrear y se le sirve noindex, que es lo que sí garantiza que no indexe.
+ *
+ * Poner en true el día que el nombre y el dominio sean definitivos.
+ */
+export const INDEXABLE = false;
+
 export const CONTACT = {
   /** Número tal como se muestra en pantalla. */
   whatsappDisplay: "55 4142 6190",
