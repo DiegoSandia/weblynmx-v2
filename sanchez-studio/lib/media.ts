@@ -62,6 +62,41 @@ export const MEDIA = {
       ratio: "4 / 5",
       ready: true,
     },
+    {
+      id: "IMG-12",
+      src: "/img/12-paquetes.jpg",
+      alt: "Paquetes integrados: tres cables distintos en un mismo conector",
+      ratio: "4 / 5",
+      ready: false,
+    },
+  ],
+
+  /**
+   * Los tres pasos. Son una sola narrativa: la misma hoja de papel
+   * diagnosticada, planeada y corregida. Ver PROMPTS-IMAGENES-V2.md.
+   */
+  proceso: [
+    {
+      id: "IMG-13",
+      src: "/img/13-paso-diagnostico.jpg",
+      alt: "Diagnóstico: una captura del sitio impresa y anotada a mano",
+      ratio: "3 / 2",
+      ready: false,
+    },
+    {
+      id: "IMG-14",
+      src: "/img/14-paso-plan.jpg",
+      alt: "Plan integrado: tres carriles dibujados a mano que convergen en uno",
+      ratio: "3 / 2",
+      ready: false,
+    },
+    {
+      id: "IMG-15",
+      src: "/img/15-paso-produccion.jpg",
+      alt: "Producción y optimización: el mismo plan corregido sobre la marcha",
+      ratio: "3 / 2",
+      ready: false,
+    },
   ],
 
   porQueNosotros: {

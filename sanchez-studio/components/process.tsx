@@ -1,8 +1,7 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
+import { MEDIA } from "@/lib/media";
 import { Stagger, StaggerItem } from "./motion/reveal";
 import { SectionHeading } from "./section-heading";
+import { MediaFrame } from "./media-frame";
 
 const STEPS = [
   {
@@ -19,9 +18,9 @@ const STEPS = [
   },
 ];
 
-export function Process() {
-  const reduce = useReducedMotion();
+const PARALLAX = [6, 9, 12];
 
+export function Process() {
   return (
     <section
       id="como-trabajamos"
@@ -30,44 +29,37 @@ export function Process() {
       <div className="shell">
         <SectionHeading index="04" title="Cómo trabajamos" />
 
-        <div className="relative mt-16">
-          {/* Línea guía: horizontal en desktop, vertical en mobile. Se dibuja al entrar. */}
-          <motion.div
-            aria-hidden="true"
-            initial={{ scaleY: reduce ? 1 : 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true, margin: "-15% 0px" }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute left-[7px] top-2 h-[calc(100%-2rem)] w-px origin-top bg-line md:hidden"
-          />
-          <motion.div
-            aria-hidden="true"
-            initial={{ scaleX: reduce ? 1 : 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true, margin: "-15% 0px" }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute left-0 top-[7px] hidden h-px w-full origin-left bg-line md:block"
-          />
+        {/*
+          [FOTO REAL] Las tres imágenes son una sola narrativa: la misma hoja de
+          papel diagnosticada, planeada y corregida. Sustituyen a la línea guía
+          animada que había antes — con imagen, esa línea competía en vez de sumar.
+        */}
+        <Stagger as="ol" className="mt-14 grid gap-12 md:grid-cols-3 md:gap-8">
+          {STEPS.map((step, i) => (
+            <StaggerItem as="li" key={step.title}>
+              <MediaFrame
+                media={MEDIA.proceso[i]}
+                parallax={PARALLAX[i]}
+                rounded="rounded-xl"
+                sizes="(max-width: 768px) 100vw, 30vw"
+              />
 
-          <Stagger as="ol" className="grid gap-12 md:grid-cols-3 md:gap-10">
-            {STEPS.map((step, i) => (
-              <StaggerItem as="li" key={step.title} className="relative pl-8 md:pl-0 md:pt-10">
-                <span className="absolute left-0 top-1 h-3.5 w-3.5 rounded-full border border-line bg-paper-dim md:top-0" />
-                <span className="absolute left-[5px] top-[11px] h-1.5 w-1.5 rounded-full bg-accent md:left-1 md:top-1" />
-
-                <span className="block text-[0.72rem] uppercase tracking-[0.2em] text-muted">
+              <div className="mt-5 flex items-center gap-3">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                <span className="text-[0.72rem] uppercase tracking-[0.2em] text-muted">
                   Paso {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-4 text-[1.3rem] font-medium leading-tight tracking-[-0.02em] sm:text-[1.45rem]">
-                  {step.title}
-                </h3>
-                <p className="mt-3 max-w-prose text-[0.98rem] leading-relaxed text-muted">
-                  {step.detail}
-                </p>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
+              </div>
+
+              <h3 className="mt-3 text-[1.25rem] font-medium leading-tight tracking-[-0.02em] sm:text-[1.4rem]">
+                {step.title}
+              </h3>
+              <p className="mt-2 max-w-prose text-[0.97rem] leading-relaxed text-muted">
+                {step.detail}
+              </p>
+            </StaggerItem>
+          ))}
+        </Stagger>
       </div>
     </section>
   );

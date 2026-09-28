@@ -28,9 +28,9 @@ const SERVICES = [
 ];
 
 // Desfase vertical en desktop: rompe la retícula y se siente editorial.
-const OFFSET = ["", "lg:mt-16", "", "lg:mt-16"];
+const OFFSET = ["", "lg:mt-16", "", "lg:mt-16", ""];
 // Cada imagen se mueve a distinta velocidad: da profundidad al hacer scroll.
-const PARALLAX = [6, 11, 8, 13];
+const PARALLAX = [6, 11, 8, 13, 9];
 
 export function Services() {
   return (
@@ -40,42 +40,41 @@ export function Services() {
       </div>
 
       {/*
-        [FOTO REAL] Una imagen por disciplina. En celular es un carrusel con
-        snap (se desliza con el dedo); de tablet en adelante es una retícula
+        Una imagen por disciplina, en el mismo orden que la lista de abajo.
+        SIN pie de foto a propósito: repetía palabra por palabra los títulos de
+        la lista, y esa redundancia costaba casi media pantalla en celular.
+        En celular es un carrusel con snap; de tablet en adelante, retícula
         desfasada con parallax.
       */}
       <Reveal delay={0.08}>
-        <div className="mt-14 flex snap-row gap-4 overflow-x-auto px-6 pb-2 sm:mx-auto sm:grid sm:max-w-shell sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-8 lg:grid-cols-4 lg:gap-8 lg:px-12">
+        <div className="mt-14 flex snap-row gap-4 overflow-x-auto px-6 pb-2 sm:mx-auto sm:grid sm:max-w-shell sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-8 lg:grid-cols-5 lg:gap-6 lg:px-12">
           {MEDIA.servicios.map((media, i) => (
-            <figure
+            <div
               key={media.id}
-              className={`snap-item w-[74vw] shrink-0 sm:w-auto ${OFFSET[i]}`}
+              className={`snap-item w-[68vw] shrink-0 sm:w-auto ${OFFSET[i]}`}
             >
               <MediaFrame
                 media={media}
                 parallax={PARALLAX[i]}
-                sizes="(max-width: 640px) 74vw, (max-width: 1024px) 45vw, 23vw"
+                sizes="(max-width: 640px) 68vw, (max-width: 1024px) 30vw, 18vw"
               />
-              <figcaption className="mt-4 text-[0.82rem] leading-snug text-muted">
-                {SERVICES[i].title}
-              </figcaption>
-            </figure>
+            </div>
           ))}
         </div>
       </Reveal>
 
       <div className="shell">
-        <Stagger as="ul" className="mt-20 border-t border-line">
+        <Stagger as="ul" className="mt-16 border-t border-line">
           {SERVICES.map((service, i) => (
             <StaggerItem as="li" key={service.title} className="group border-b border-line">
-              <div className="grid gap-3 py-8 transition-all duration-500 ease-editorial group-hover:pl-2 sm:py-10 lg:grid-cols-12 lg:gap-8">
+              <div className="grid gap-2 py-6 transition-all duration-500 ease-editorial group-hover:pl-2 sm:py-8 lg:grid-cols-12 lg:gap-8">
                 <span className="text-[0.75rem] tabular-nums tracking-[0.2em] text-muted transition-colors duration-300 group-hover:text-accent lg:col-span-1">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="text-[1.35rem] font-medium leading-tight tracking-[-0.02em] sm:text-[1.55rem] lg:col-span-5">
+                <h3 className="text-[1.25rem] font-medium leading-tight tracking-[-0.02em] sm:text-[1.45rem] lg:col-span-5">
                   {service.title}
                 </h3>
-                <p className="max-w-prose text-[1rem] leading-relaxed text-muted lg:col-span-6">
+                <p className="max-w-prose text-[0.97rem] leading-relaxed text-muted lg:col-span-6">
                   {service.detail}
                 </p>
               </div>
