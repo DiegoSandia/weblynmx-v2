@@ -319,6 +319,143 @@ Si alguna respuesta es "no", regenera:
 nada fundido con el objeto. A la mínima duda, regenera — una mano rara arruina la
 credibilidad de toda la serie.
 
+---
+
+# Imágenes adicionales
+
+Slots del sitio que hoy no tienen imagen. Mismo BLOQUE BASE v2, mismo filtro.
+
+| Archivo | Dimensiones | Proporción | Dónde |
+| --- | --- | --- | --- |
+| `12-paquetes.jpg` | 1600 × 2000 | 4:5 | 5º servicio, completa la galería |
+| `13-paso-diagnostico.jpg` | 1500 × 1000 | 3:2 | Cómo trabajamos, paso 01 |
+| `14-paso-plan.jpg` | 1500 × 1000 | 3:2 | Cómo trabajamos, paso 02 |
+| `15-paso-produccion.jpg` | 1500 × 1000 | 3:2 | Cómo trabajamos, paso 03 |
+| `16-textura-papel.jpg` | 2400 × 2400 | 1:1 | Textura de fondo, secciones claras |
+| `17-textura-negra.jpg` | 2400 × 2400 | 1:1 | Textura de fondo, secciones oscuras |
+
+**Las tres de proceso son una sola historia.** Es la misma hoja de papel en tres
+momentos: se diagnostica, se planea, se corrige. Genera la 13 primero y adjúntala en
+la 14 y la 15 para que se reconozca el mismo papel, la misma mesa y la misma letra.
+
+## IMG-12 — Paquetes integrados → `12-paquetes.jpg` · 4:5
+
+```
+[BLOQUE BASE v2]
+
+TOMA: macro, cenital. Canon EOS R5 con RF 100 mm macro, f/5.6, a 25 cm.
+Formato vertical.
+
+SUJETO: tres cables de tipo distinto —uno grueso de video, uno de red y uno delgado
+de audio, cada uno con su textura y su desgaste— entran por el borde superior del
+encuadre en paralelo y terminan los tres enchufados en un mismo bloque conector
+metálico, que descansa sobre la mesa de madera gastada.
+
+ACENTO: el bloque conector tiene una banda terracota pintada en un costado.
+
+COMPOSICIÓN: los cables ocupan la mitad superior; el conector queda en el centro; la
+mitad inferior es mesa vacía con la sombra dura del bloque. La idea es "tres entradas,
+una sola conexión" — leída de un vistazo, sin metáfora que descifrar.
+```
+
+## IMG-13 — Paso 01, Diagnóstico → `13-paso-diagnostico.jpg` · 3:2
+
+```
+[BLOQUE BASE v2]
+
+TOMA: cenital, 90°. Hasselblad X2D con XCD 90 mm, f/8, a 50 cm. Formato apaisado.
+
+SUJETO: la captura de un sitio web impresa en papel mate, colocada sobre la mesa de
+trabajo. La impresión está en escala de grises y su contenido es irreconocible —bloques
+de gris, sin texto legible ni interfaz identificable—. Encima, alguien ha hecho
+anotaciones a mano: círculos, flechas cortas y tachones.
+
+ACENTO: las anotaciones están hechas con lápiz de color terracota, y el lápiz descansa
+en diagonal sobre la hoja, aún sin guardar.
+
+MANOS: ninguna. El gesto ya ocurrió.
+
+COMPOSICIÓN: la hoja descentrada a la izquierda, ligeramente chueca respecto al
+encuadre. La derecha es mesa vacía. Sombra dura del papel levantado en una esquina.
+```
+
+## IMG-14 — Paso 02, Plan integrado → `14-paso-plan.jpg` · 3:2
+
+```
+[BLOQUE BASE v2 — adjuntar IMG-13: misma mesa, mismo papel, misma letra]
+
+TOMA: cenital, 90°. Hasselblad X2D con XCD 90 mm, f/8, a 50 cm. Formato apaisado.
+
+SUJETO: una hoja grande, limpia, sobre la misma mesa. Dibujado a mano con regla: un
+diagrama de tres carriles horizontales paralelos que convergen hacia la derecha en una
+sola línea. Los trazos son de lápiz, hechos con cuidado pero sin ser perfectos. Sin
+texto legible en ningún punto del diagrama — solo líneas y algún punto marcado.
+
+ACENTO: la línea única en la que convergen los tres carriles está trazada en terracota.
+
+AL MARGEN: la hoja arrugada del diagnóstico (IMG-13) asoma por el borde izquierdo del
+encuadre, debajo de esta, parcialmente cubierta.
+
+COMPOSICIÓN: el diagrama ocupa dos tercios. Aire arriba y abajo.
+```
+
+## IMG-15 — Paso 03, Producción y optimización → `15-paso-produccion.jpg` · 3:2
+
+```
+[BLOQUE BASE v2 — adjuntar IMG-14: es la MISMA hoja, tiempo después]
+
+TOMA: cenital, 90°, ligeramente más cerca. Hasselblad X2D con XCD 90 mm, f/8, a 40 cm.
+Formato apaisado.
+
+SUJETO: la hoja del plan de IMG-14, ahora trabajada: con tachaduras, un carril
+redibujado encima del original, dos números escritos a mano en el margen (ilegibles,
+solo trazo), una esquina manchada y el papel ligeramente ondulado por el uso.
+
+ACENTO: la corrección más reciente —el carril redibujado— está en terracota y se
+distingue del lápiz gris de lo anterior.
+
+MANOS: una mano entra por el borde inferior derecho y apoya la punta de un lápiz sobre
+el punto que acaba de corregir. Cortada por el borde, dedos parcialmente ocultos tras
+el lápiz.
+
+COMPOSICIÓN: más cerrada que las dos anteriores. Se debe sentir que es la misma hoja
+después de semanas de trabajo, no una hoja nueva.
+```
+
+## IMG-16 — Textura de papel → `16-textura-papel.jpg` · 1:1
+
+```
+Fotografía macro de una hoja de papel de algodón prensado en frío de 300 g/m², color
+crema cálido #FBFAF8, llenando todo el encuadre.
+
+Luz muy rasante desde la izquierda, casi paralela a la superficie, de modo que el
+relieve de la fibra y el grano del papel se vean con claridad en sombra y luz.
+Se ven fibras individuales, alguna mota más oscura incrustada en la pulpa y una
+irregularidad muy leve del prensado.
+
+Sin objetos, sin sombras proyectadas de nada externo, sin borde de la hoja, sin
+degradado, sin viñeta, sin texto. Solo superficie, de esquina a esquina, uniforme en
+exposición para que pueda repetirse como fondo.
+```
+
+## IMG-17 — Textura negra → `17-textura-negra.jpg` · 1:1
+
+```
+Fotografía macro de cartulina negra mate #12110F, llenando todo el encuadre.
+
+Luz muy rasante desde la izquierda, que revela apenas la textura del cartón: el grano,
+alguna fibra levantada y una irregularidad mínima de la superficie. La imagen es casi
+negra en su totalidad, con el relieve insinuado, nunca evidente.
+
+Sin objetos, sin borde, sin degradado, sin viñeta, sin texto, sin brillos ni reflejos
+especulares. Solo superficie, uniforme en exposición.
+```
+
+> **Nota sobre las texturas:** ChatGPT no genera texturas perfectamente repetibles —
+> si se ponen en mosaico se notan las costuras. Para el uso previsto (una sola capa
+> grande y translúcida sobre la sección) eso no importa. No las pidas "tileable"
+> ni "seamless": el resultado empeora.
+
 ## Correcciones rápidas
 
 | Problema | Qué escribir |
