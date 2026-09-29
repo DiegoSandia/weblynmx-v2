@@ -2,6 +2,7 @@ import { MEDIA } from "@/lib/media";
 import { Reveal, Stagger, StaggerItem } from "./motion/reveal";
 import { SectionHeading } from "./section-heading";
 import { MediaFrame } from "./media-frame";
+import { PinnedGallery } from "./pinned-gallery";
 
 const SERVICES = [
   {
@@ -27,27 +28,23 @@ const SERVICES = [
   },
 ];
 
-// Desfase vertical en desktop: rompe la retícula y se siente editorial.
-const OFFSET = ["", "lg:mt-16", "", "lg:mt-16", ""];
-// Cada imagen se mueve a distinta velocidad: da profundidad al hacer scroll.
+const OFFSET = ["", "sm:mt-10", "", "sm:mt-10", ""];
 const PARALLAX = [6, 11, 8, 13, 9];
 
 export function Services() {
   return (
     <section id="que-hacemos" className="scroll-mt-24 border-t border-line py-24 sm:py-32">
-      <div className="shell">
+      {/* De lg en adelante el encabezado vive dentro de la galería anclada. */}
+      <div className="shell lg:hidden">
         <SectionHeading index="01" title="Qué hacemos" />
       </div>
 
       {/*
-        Una imagen por disciplina, en el mismo orden que la lista de abajo.
-        SIN pie de foto a propósito: repetía palabra por palabra los títulos de
-        la lista, y esa redundancia costaba casi media pantalla en celular.
-        En celular es un carrusel con snap; de tablet en adelante, retícula
-        desfasada con parallax.
+        Hasta md: carrusel con snap en celular, retícula en tablet.
+        Sin pie de foto — repetían los títulos de la lista de abajo.
       */}
-      <Reveal delay={0.08}>
-        <div className="mt-14 flex snap-row gap-4 overflow-x-auto px-6 pb-2 sm:mx-auto sm:grid sm:max-w-shell sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-8 lg:grid-cols-5 lg:gap-6 lg:px-12">
+      <Reveal delay={0.08} className="lg:hidden">
+        <div className="mt-14 flex snap-row gap-4 overflow-x-auto px-6 pb-2 sm:mx-auto sm:grid sm:max-w-shell sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-8">
           {MEDIA.servicios.map((media, i) => (
             <div
               key={media.id}
@@ -56,15 +53,18 @@ export function Services() {
               <MediaFrame
                 media={media}
                 parallax={PARALLAX[i]}
-                sizes="(max-width: 640px) 68vw, (max-width: 1024px) 30vw, 18vw"
+                sizes="(max-width: 640px) 68vw, 30vw"
               />
             </div>
           ))}
         </div>
       </Reveal>
 
+      {/* De lg en adelante: la sección se ancla y las imágenes pasan de lado. */}
+      <PinnedGallery media={MEDIA.servicios} eyebrow="01" title="Qué hacemos" />
+
       <div className="shell">
-        <Stagger as="ul" className="mt-16 border-t border-line">
+        <Stagger as="ul" className="mt-16 border-t border-line lg:mt-24">
           {SERVICES.map((service, i) => (
             <StaggerItem as="li" key={service.title} className="group border-b border-line">
               <div className="grid gap-2 py-6 transition-all duration-500 ease-editorial group-hover:pl-2 sm:py-8 lg:grid-cols-12 lg:gap-8">
