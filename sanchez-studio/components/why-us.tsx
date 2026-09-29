@@ -3,6 +3,7 @@ import { Stagger, StaggerItem } from "./motion/reveal";
 import { SectionHeading } from "./section-heading";
 import { ScrollQuote } from "./scroll-quote";
 import { MediaFrame } from "./media-frame";
+import { Spotlight } from "./spotlight";
 
 /**
  * Los cuatro puntos del recorrido salen textualmente del párrafo de esta
@@ -35,9 +36,12 @@ export function WhyUs() {
   return (
     <section
       id="por-que-nosotros"
-      className="scroll-mt-24 bg-ink py-24 text-paper sm:py-32"
+      className="relative overflow-hidden scroll-mt-24 bg-ink py-24 text-paper sm:py-32"
     >
-      <div className="shell">
+      {/* Luz que sigue al cursor, o barre con el scroll en celular. */}
+      <Spotlight />
+
+      <div className="shell relative z-10">
         <SectionHeading index="02" title="Por qué nosotros" tone="dark" />
 
         <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-16">

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { BRAND, INDEXABLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -68,6 +69,7 @@ export default function RootLayout({
   return (
     <html lang="es-MX" className={`${inter.variable} ${instrumentSerif.variable}`}>
       <body>
+        <SmoothScroll />
         {children}
         {/*
           Analítica de Vercel. Hay que activarla en el panel del proyecto

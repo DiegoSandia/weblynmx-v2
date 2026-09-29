@@ -34,9 +34,18 @@ export function Process() {
           papel diagnosticada, planeada y corregida. Sustituyen a la línea guía
           animada que había antes — con imagen, esa línea competía en vez de sumar.
         */}
-        <Stagger as="ol" className="mt-14 grid gap-12 md:grid-cols-3 md:gap-8">
+        {/*
+          En celular las tres tarjetas se apilan: cada una se queda pegada
+          arriba y la siguiente la va tapando conforme bajas. En desktop hay
+          espacio para las tres a la vez, así que ahí va retícula normal.
+        */}
+        <Stagger as="ol" className="mt-14 md:grid md:grid-cols-3 md:gap-8">
           {STEPS.map((step, i) => (
-            <StaggerItem as="li" key={step.title}>
+            <StaggerItem
+              as="li"
+              key={step.title}
+              className="sticky top-24 mb-6 rounded-2xl border border-line bg-paper p-5 shadow-[0_18px_40px_-28px_rgba(18,17,15,0.45)] last:mb-0 md:static md:mb-0 md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none"
+            >
               <MediaFrame
                 media={MEDIA.proceso[i]}
                 parallax={PARALLAX[i]}
