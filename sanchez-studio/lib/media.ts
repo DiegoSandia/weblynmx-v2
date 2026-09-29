@@ -67,7 +67,7 @@ export const MEDIA = {
       src: "/img/12-paquetes.jpg",
       alt: "Paquetes integrados: tres cables distintos en un mismo conector",
       ratio: "4 / 5",
-      ready: false,
+      ready: true,
     },
   ],
 
@@ -81,21 +81,21 @@ export const MEDIA = {
       src: "/img/13-paso-diagnostico.jpg",
       alt: "Diagnóstico: una captura del sitio impresa y anotada a mano",
       ratio: "3 / 2",
-      ready: false,
+      ready: true,
     },
     {
       id: "IMG-14",
       src: "/img/14-paso-plan.jpg",
       alt: "Plan integrado: tres carriles dibujados a mano que convergen en uno",
       ratio: "3 / 2",
-      ready: false,
+      ready: true,
     },
     {
       id: "IMG-15",
       src: "/img/15-paso-produccion.jpg",
       alt: "Producción y optimización: el mismo plan corregido sobre la marcha",
       ratio: "3 / 2",
-      ready: false,
+      ready: true,
     },
   ],
 
