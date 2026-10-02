@@ -8,11 +8,11 @@ const VERTICALS = ["Restaurantes", "Clínicas", "Estudios de fitness", "Negocios
 
 const PARALLAX = [7, 12, 9, 14];
 
-export function Audience() {
+export function Audience({ index }: { index: string }) {
   return (
     <section id="para-quien" className="scroll-mt-24 py-24 sm:py-32">
       <div className="shell">
-        <SectionHeading index="03" title="Para quién es esto" />
+        <SectionHeading index={index} title="Para quién es esto" />
 
         <Reveal delay={0.06}>
           <p className="mt-12 max-w-[46ch] text-[clamp(1.15rem,2.2vw,1.6rem)] leading-[1.5] tracking-[-0.015em] text-ink-soft">

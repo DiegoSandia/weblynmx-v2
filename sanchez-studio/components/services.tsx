@@ -31,12 +31,12 @@ const SERVICES = [
 const OFFSET = ["", "sm:mt-10", "", "sm:mt-10", ""];
 const PARALLAX = [6, 11, 8, 13, 9];
 
-export function Services() {
+export function Services({ index }: { index: string }) {
   return (
     <section id="que-hacemos" className="scroll-mt-24 border-t border-line py-24 sm:py-32">
       {/* De lg en adelante el encabezado vive dentro de la galería anclada. */}
       <div className="shell lg:hidden">
-        <SectionHeading index="01" title="Qué hacemos" />
+        <SectionHeading index={index} title="Qué hacemos" />
       </div>
 
       {/*
@@ -61,7 +61,7 @@ export function Services() {
       </Reveal>
 
       {/* De lg en adelante: la sección se ancla y las imágenes pasan de lado. */}
-      <PinnedGallery media={MEDIA.servicios} eyebrow="01" title="Qué hacemos" />
+      <PinnedGallery media={MEDIA.servicios} eyebrow={index} title="Qué hacemos" />
 
       <div className="shell">
         <Stagger as="ul" className="mt-16 border-t border-line lg:mt-24">

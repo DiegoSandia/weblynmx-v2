@@ -32,7 +32,7 @@ const QUOTE = [
   },
 ];
 
-export function WhyUs() {
+export function WhyUs({ index }: { index: string }) {
   return (
     <section
       id="por-que-nosotros"
@@ -42,7 +42,7 @@ export function WhyUs() {
       <Spotlight />
 
       <div className="shell relative z-10">
-        <SectionHeading index="02" title="Por qué nosotros" tone="dark" />
+        <SectionHeading index={index} title="Por qué nosotros" tone="dark" />
 
         <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">

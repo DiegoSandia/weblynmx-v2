@@ -2,6 +2,8 @@ import Image from "next/image";
 import { MEDIA } from "@/lib/media";
 import { Reveal } from "./motion/reveal";
 import { WhatsAppCta } from "./whatsapp-cta";
+import { PROMESA_CTA } from "@/lib/contenido";
+
 
 /** Cierre: repite el CTA del hero, con la misma frase del hero. */
 export function FinalCta() {
@@ -52,6 +54,11 @@ export function FinalCta() {
           <div className="mt-12 flex justify-center">
             <WhatsAppCta origin="cierre" variant="inverse" />
           </div>
+          {PROMESA_CTA ? (
+            <p className="mx-auto mt-6 max-w-prose text-[0.92rem] leading-relaxed text-white/60">
+              {PROMESA_CTA}
+            </p>
+          ) : null}
         </Reveal>
       </div>
     </section>

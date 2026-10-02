@@ -3,6 +3,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { WhatsAppCta } from "./whatsapp-cta";
 import { ConvergenceMark } from "./convergence-mark";
+import { PROMESA_CTA } from "@/lib/contenido";
+
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -100,6 +102,12 @@ export function Hero() {
             <div className="mt-9">
               <WhatsAppCta origin="hero" />
             </div>
+            {/* Lo que pasa después de apretar: baja el riesgo de dar el paso. */}
+            {PROMESA_CTA ? (
+              <p className="mt-5 max-w-prose text-[0.92rem] leading-relaxed text-muted">
+                {PROMESA_CTA}
+              </p>
+            ) : null}
           </motion.div>
 
           <div className="lg:col-span-7 lg:pt-2">

@@ -20,14 +20,14 @@ const STEPS = [
 
 const PARALLAX = [6, 9, 12];
 
-export function Process() {
+export function Process({ index }: { index: string }) {
   return (
     <section
       id="como-trabajamos"
       className="scroll-mt-24 border-t border-line bg-paper-dim py-24 sm:py-32"
     >
       <div className="shell">
-        <SectionHeading index="04" title="Cómo trabajamos" />
+        <SectionHeading index={index} title="Cómo trabajamos" />
 
         {/*
           [FOTO REAL] Las tres imágenes son una sola narrativa: la misma hoja de

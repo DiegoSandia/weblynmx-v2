@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import type { Media } from "@/lib/media";
 
@@ -42,6 +42,8 @@ export function MediaFrame({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  // Las fotos entran desvanecidas en vez de aparecer de golpe.
+  const [cargada, setCargada] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -80,7 +82,10 @@ export function MediaFrame({
               fill
               sizes={sizes}
               priority={priority}
-              className="object-cover"
+              onLoad={() => setCargada(true)}
+              className={`object-cover transition-opacity duration-700 ${
+                cargada ? "opacity-100" : "opacity-0"
+              }`}
             />
           </motion.div>
         ) : (
