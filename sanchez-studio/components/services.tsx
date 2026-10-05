@@ -2,7 +2,7 @@ import { MEDIA } from "@/lib/media";
 import { Reveal, Stagger, StaggerItem } from "./motion/reveal";
 import { SectionHeading } from "./section-heading";
 import { MediaFrame } from "./media-frame";
-import { PinnedGallery } from "./pinned-gallery";
+import { PinnedGallery, type ItemGaleria } from "./pinned-gallery";
 
 const SERVICES = [
   {
@@ -28,6 +28,13 @@ const SERVICES = [
   },
 ];
 
+/** Cada imagen con el servicio que le toca, en el mismo orden. */
+const GALERIA: ItemGaleria[] = MEDIA.servicios.map((media, i) => ({
+  media,
+  title: SERVICES[i].title,
+  detail: SERVICES[i].detail,
+}));
+
 const OFFSET = ["", "sm:mt-10", "", "sm:mt-10", ""];
 const PARALLAX = [6, 11, 8, 13, 9];
 
@@ -40,8 +47,8 @@ export function Services({ index }: { index: string }) {
       </div>
 
       {/*
-        Hasta md: carrusel con snap en celular, retícula en tablet.
-        Sin pie de foto — repetían los títulos de la lista de abajo.
+        Hasta md: carrusel con snap en celular, retícula en tablet. Aquí sí van
+        sin texto, porque la lista completa está justo debajo, a la vista.
       */}
       <Reveal delay={0.08} className="lg:hidden">
         <div className="mt-14 flex snap-row gap-4 overflow-x-auto px-6 pb-2 sm:mx-auto sm:grid sm:max-w-shell sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-8">
@@ -60,21 +67,25 @@ export function Services({ index }: { index: string }) {
         </div>
       </Reveal>
 
-      {/* De lg en adelante: la sección se ancla y las imágenes pasan de lado. */}
-      <PinnedGallery media={MEDIA.servicios} eyebrow={index} title="Qué hacemos" />
+      {/*
+        De lg en adelante: la sección se ancla y las tarjetas pasan de lado,
+        cada una con su título y su línea. Ahí las tarjetas SON el contenido,
+        así que la lista de abajo no se repite — se oculta.
+      */}
+      <PinnedGallery items={GALERIA} eyebrow={index} title="Qué hacemos" />
 
-      <div className="shell">
-        <Stagger as="ul" className="mt-16 border-t border-line lg:mt-24">
+      <div className="shell lg:hidden">
+        <Stagger as="ul" className="mt-16 border-t border-line">
           {SERVICES.map((service, i) => (
             <StaggerItem as="li" key={service.title} className="group border-b border-line">
-              <div className="grid gap-2 py-6 transition-all duration-500 ease-editorial group-hover:pl-2 sm:py-8 lg:grid-cols-12 lg:gap-8">
-                <span className="text-[0.75rem] tabular-nums tracking-[0.2em] text-muted transition-colors duration-300 group-hover:text-accent lg:col-span-1">
+              <div className="grid gap-2 py-6 transition-all duration-500 ease-editorial group-hover:pl-2 sm:py-8">
+                <span className="text-[0.75rem] tabular-nums tracking-[0.2em] text-muted transition-colors duration-300 group-hover:text-accent">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="text-[1.25rem] font-medium leading-tight tracking-[-0.02em] sm:text-[1.45rem] lg:col-span-5">
+                <h3 className="text-[1.25rem] font-medium leading-tight tracking-[-0.02em] sm:text-[1.45rem]">
                   {service.title}
                 </h3>
-                <p className="max-w-prose text-[0.97rem] leading-relaxed text-muted lg:col-span-6">
+                <p className="max-w-prose text-[0.97rem] leading-relaxed text-muted">
                   {service.detail}
                 </p>
               </div>

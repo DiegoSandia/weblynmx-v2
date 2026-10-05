@@ -5,23 +5,31 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import type { Media } from "@/lib/media";
 import { MediaFrame } from "./media-frame";
 
+export type ItemGaleria = {
+  media: Media;
+  title: string;
+  detail: string;
+};
+
 /**
- * Galería anclada: la sección se queda fija en pantalla y las imágenes se
+ * Galería anclada: la sección se queda fija en pantalla y las tarjetas se
  * desplazan de lado mientras haces scroll vertical.
+ *
+ * Cada tarjeta lleva su título y su línea. Sin eso, el visitante pasa casi
+ * mil píxeles de scroll viendo imágenes abstractas con un número debajo y
+ * nada que las explique: la lista que las describe queda hasta después del
+ * recorrido, o sea, demasiado tarde.
  *
  * Solo en desktop (lg y arriba). En celular no tiene sentido secuestrar el
  * scroll vertical, así que ahí va el carrusel con swipe — ese vive en
  * services.tsx y este bloque queda oculto, sin descargar sus imágenes.
- *
- * La distancia horizontal se mide en vivo (no es un porcentaje fijo), así que
- * funciona igual en un portátil de 1280 que en un monitor de 2560.
  */
 export function PinnedGallery({
-  media,
+  items,
   eyebrow,
   title,
 }: {
-  media: readonly Media[];
+  items: readonly ItemGaleria[];
   eyebrow: string;
   title: string;
 }) {
@@ -35,7 +43,6 @@ export function PinnedGallery({
     const medir = () => {
       const track = trackRef.current;
       if (!track) return;
-      // Lo que sobra del riel más un respiro al final.
       const nueva = Math.max(0, track.scrollWidth - window.innerWidth + 96);
 
       setDistancia((anterior) => {
@@ -55,7 +62,6 @@ export function PinnedGallery({
     medir();
     window.addEventListener("resize", medir);
 
-    // Las imágenes cambian el ancho del riel al cargar.
     const observer = new ResizeObserver(medir);
     if (trackRef.current) observer.observe(trackRef.current);
 
@@ -63,7 +69,7 @@ export function PinnedGallery({
       window.removeEventListener("resize", medir);
       observer.disconnect();
     };
-  }, [media.length]);
+  }, [items.length]);
 
   const { scrollYProgress } = useScroll({
     target: outerRef,
@@ -81,24 +87,33 @@ export function PinnedGallery({
       style={{ height: `calc(100vh + ${distancia}px)` }}
     >
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
-        <div className="shell shrink-0 pb-10">
+        <div className="shell shrink-0 pb-8">
           <p className="eyebrow">
             <span className="h-px w-8 shrink-0 bg-line" />
             {eyebrow}
           </p>
-          <h2 className="mt-5 font-display text-title">{title}</h2>
+          <h2 className="mt-4 font-display text-title">{title}</h2>
         </div>
 
         <motion.div
           ref={trackRef}
           style={reduce ? undefined : { x }}
-          className="flex shrink-0 gap-6 pl-12 pr-12"
+          className="flex shrink-0 gap-6 px-12"
         >
-          {media.map((item, i) => (
-            <figure key={item.id} className="w-[22rem] shrink-0 xl:w-[24rem]">
-              <MediaFrame media={item} parallax={4} sizes="24rem" />
-              <figcaption className="mt-4 text-[0.75rem] tabular-nums tracking-[0.2em] text-muted">
-                {String(i + 1).padStart(2, "0")}
+          {items.map((item, i) => (
+            <figure key={item.media.id} className="w-[20rem] shrink-0 2xl:w-[22rem]">
+              <MediaFrame media={item.media} parallax={4} sizes="22rem" />
+
+              <figcaption className="mt-4">
+                <span className="text-[0.72rem] tabular-nums tracking-[0.2em] text-muted">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="mt-2 text-[1.05rem] font-medium leading-snug tracking-[-0.02em]">
+                  {item.title}
+                </p>
+                <p className="mt-1.5 text-[0.9rem] leading-relaxed text-muted">
+                  {item.detail}
+                </p>
               </figcaption>
             </figure>
           ))}
